@@ -1,0 +1,21 @@
+meta {
+  name: create user
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:9080/v1/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "shyam@gmail.com",
+    "password": "Shyam@12",
+    "display_name": "Shyam kumar",
+    "phone": "0123456789",
+    "role_id": "bc78fd3b-66ac-42cf-84c8-72fb236dd0f3"
+  }
+}

@@ -1,0 +1,32 @@
+meta {
+  name: create motor
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:9080/v1/motors/in
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "serial_no": "MTR-2025-0012",
+    "motor_id": "MOTOR-0012",
+    "rpm": 1450,
+    "frame": "100L",
+    "amp": "15A",
+    "kw": "67kw",
+    "voltage": "415V",
+    "mounting": "Foot Mounted",
+    "make": "Siemens",
+    "bearing_DE": "6205ZZ",
+    "bearing_NDE": "6206ZZ",
+    "in_at_date": "15-10-2025",
+    "in_at_time": "01:34 PM",
+    "location": "Phase-7 Block D",
+    "remark": ""
+  }
+  
+}

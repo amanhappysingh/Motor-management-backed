@@ -1,0 +1,15 @@
+meta {
+  name: get motors
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://127.0.0.1:9080/v1/motors?search=motor
+  body: none
+  auth: none
+}
+
+params:query {
+  search: motor
+}

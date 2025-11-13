@@ -1,0 +1,47 @@
+version: "3.9"
+
+volumes:
+  db:
+  node_modules:
+
+networks:
+  default:
+    external:
+      name: motor_ews
+
+services:
+  db:
+    image: postgres:16-bookworm
+    container_name: db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"       
+    environment:
+      POSTGRES_USER: motor_ews
+      POSTGRES_PASSWORD: motor_ews
+      POSTGRES_DB: motor_ews
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "motor_ews", "-d", "motor_ews"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # api-server:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.Dev
+  #   container_name: api-server
+  #   restart: unless-stopped
+  #   ports:
+  #     - "9080:9080"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     - TS_NODE_DEV_USE_POLLING=true
+  #   volumes:
+  #     - .:/app
+  #     - node_modules:/app/node_modules

@@ -1,0 +1,72 @@
+version: "3.9"
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/motor_ews_pg   # SSD/NVMe path bana lena
+      o: bind
+
+networks:
+  default:
+    external:
+      name: motor_ews
+
+services:
+  db:
+    image: postgres:16-bookworm
+    container_name: db
+    restart: always
+    ports: []                         # 5432 band — sirf internal network
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/16/docker
+      POSTGRES_INITDB_ARGS: >-
+        --data-checksums
+        --auth-host=scram-sha-256
+        --auth-local=scram-sha-256
+    volumes:
+      - db:/var/lib/postgresql/16/docker
+      - /data/motor_ews_backups:/backups:ro
+      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf:ro
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
+      - "-c"
+      - "hba_file=/etc/postgresql/pg_hba.conf"
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4G
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-server
+    restart: always
+    ports: []                         # sirf reverse proxy se aayega
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      db:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
