@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
-    "type": "module",
+    "type": "modules",
     "directories": {
         "test": "tests"
     },
@@ -11,7 +11,7 @@
         "migrate": "bash /migrations/V001__init_Schema.sql",
         "build": "tsc",
         "dev": "ts-node-dev --respawn --transpile-only --inspect=0.0.0.0:9229 src/server.ts",
-        "start": "node dist/server.js",
+        "start": "node /dist/server.js",
         "seed": "bash /seeds/index.sh"
     },
     "keywords": [],
