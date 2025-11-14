@@ -51,7 +51,7 @@ export default class MotorController {
         try {
             const data = motorInRequestSchema.parse(req.body)
             const userId = req.user?.userId as string
-            await this.motorInUC.execute({...data, in_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5"})
+            await this.motorInUC.execute({...data, in_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec"})
             res.status(StatusCodes.CREATED).json(ApiResponse.created())
         } catch (error: any) {
             logger.error(error.message, error)
@@ -97,7 +97,7 @@ export default class MotorController {
         try {
             const data = motorMoveToOverhaulingSchema.parse(req.params)
             const userId = req.user?.userId as string
-            await this.motorMoveToOverhaulingUC.execute({...data, overhauled_started_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" })
+            await this.motorMoveToOverhaulingUC.execute({...data, overhauled_started_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" })
             res.status(StatusCodes.OK).json(ApiResponse.ok({ message: "Motor is moved for overhauling"}))
         } catch (error:any) {
             logger.error(error.message, error)
@@ -109,7 +109,7 @@ export default class MotorController {
         try {
             const data = motorMoveToTrialSchema.parse({ ...req.body, ...req.params })
             const userId: string = req.user?.userId as string;
-            await this.motorMoveToTrialUC.execute({ ...data, overhauled_completed_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5", trial_started_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" })
+            await this.motorMoveToTrialUC.execute({ ...data, overhauled_completed_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec", trial_started_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" })
             res.status(StatusCodes.OK).json(ApiResponse.ok({ message: "Motor is moved for trial"}))
         } catch (error: any) {
             logger.error(error.message, error)
@@ -121,7 +121,7 @@ export default class MotorController {
         try {
             const data = motorMoveToAvailableSchema.parse({ ...req.body, ...req.params })
             const userId: string = req.user?.userId as string;
-            await this.motorMoveToAvailableUC.execute({ ...data, trial_completed_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5", available_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" })
+            await this.motorMoveToAvailableUC.execute({ ...data, trial_completed_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec", available_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" })
             res.status(StatusCodes.OK).json(ApiResponse.ok({ message: "Motor is now available"}))
         } catch (error: any) {
             logger.error(error.message, error)
@@ -135,7 +135,7 @@ export default class MotorController {
             const images = (req.files || [])?.map((image: any) => image.destination.split("src")[1].replace(/\\/g, "/") + "/" +image.filename);
             const data = motorMoveToOutSchema.parse({ ...req.body, ...req.params, images })
             const userId: string = req.user?.userId as string;
-            await this.motorMoveToOutUC.execute({ ...data, out_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" })
+            await this.motorMoveToOutUC.execute({ ...data, out_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" })
             res.status(StatusCodes.OK).json(ApiResponse.ok({ message: "Motor is now available"}))
         } catch (error: any) {
             logger.error(error.message, error)
@@ -147,7 +147,7 @@ export default class MotorController {
         try {
             const data = motorMoveToFaultSchema.parse({ ...req.body, ...req.params })
             const userId: string = req.user?.userId as string;
-            await this.motorMoveToFaultUC.execute({ ...data, fault_find_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" })
+            await this.motorMoveToFaultUC.execute({ ...data, fault_find_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" })
             res.status(StatusCodes.OK).json(ApiResponse.ok({ message: "Motor is moved to fault"}))
         } catch (error: any) {
             logger.error(error.message, error)
