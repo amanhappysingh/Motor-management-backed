@@ -5,31 +5,32 @@ import compression from "compression";
 import env from "./config/env";
 import { apiRouter } from "./routes";
 import path from "path";
+import logger from "./config/logger";
 
 const app: Application = express();
 
 const allowedOrigins: string[] = env.ALLOWED_ORIGIN.split(",") || [];
 
-// const corsOptions: CorsOptions = {
-//   origin: (requestOrigin, callback) => {
-//     if (!requestOrigin) return callback(null, true);
+const corsOptions: CorsOptions = {
+  origin: (requestOrigin, callback) => {
+    if (!requestOrigin) return callback(null, true);
 
-//     if (allowedOrigins.length === 0 || allowedOrigins.includes(requestOrigin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error(`Not allowed by CORS: ${requestOrigin}`));
-//     }
-//   },
-//   credentials: true,
-//   optionsSuccessStatus: 200,
-// };
-
-// app.use(cors(corsOptions));
-app.use(cors({
-  origin: ["http://localhost:1209", "http://192.168.1.5:1209", "*"],
+    if (allowedOrigins.length === 0 || allowedOrigins.includes(requestOrigin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Not allowed by CORS: ${requestOrigin}`));
+    }
+  },
   credentials: true,
-  optionsSuccessStatus: 204
-}));
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+// app.use(cors({
+//   origin: ["http://localhost:1209", "http://192.168.1.5:1209", "*"],
+//   credentials: true,
+//   optionsSuccessStatus: 204
+// }));
 
 app.use(helmet());
 app.use(compression());

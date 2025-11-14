@@ -6,6 +6,7 @@ const init_server = async () => {
   const port = env.PORT;
   
   app.listen(port, "0.0.0.0", () => {
+    logger.info("Env varibales - ", { env })
     logger.info(`Server is running on http://0.0.0.0:${port}`);
   });
 };

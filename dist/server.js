@@ -9,6 +9,7 @@ const logger_1 = __importDefault(require("./config/logger"));
 const init_server = async () => {
     const port = env_1.default.PORT;
     app_1.default.listen(port, "0.0.0.0", () => {
+        logger_1.default.info("Env varibales - ", { env: env_1.default });
         logger_1.default.info(`Server is running on http://0.0.0.0:${port}`);
     });
 };

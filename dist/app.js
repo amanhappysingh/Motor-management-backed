@@ -12,24 +12,26 @@ const routes_1 = require("./routes");
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const allowedOrigins = env_1.default.ALLOWED_ORIGIN.split(",") || [];
-// const corsOptions: CorsOptions = {
-//   origin: (requestOrigin, callback) => {
-//     if (!requestOrigin) return callback(null, true);
-//     if (allowedOrigins.length === 0 || allowedOrigins.includes(requestOrigin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error(`Not allowed by CORS: ${requestOrigin}`));
-//     }
-//   },
-//   credentials: true,
-//   optionsSuccessStatus: 200,
-// };
-// app.use(cors(corsOptions));
-app.use((0, cors_1.default)({
-    origin: ["http://localhost:1209", "http://192.168.1.5:1209", "*"],
+const corsOptions = {
+    origin: (requestOrigin, callback) => {
+        if (!requestOrigin)
+            return callback(null, true);
+        if (allowedOrigins.length === 0 || allowedOrigins.includes(requestOrigin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error(`Not allowed by CORS: ${requestOrigin}`));
+        }
+    },
     credentials: true,
-    optionsSuccessStatus: 204
-}));
+    optionsSuccessStatus: 200,
+};
+app.use((0, cors_1.default)(corsOptions));
+// app.use(cors({
+//   origin: ["http://localhost:1209", "http://192.168.1.5:1209", "*"],
+//   credentials: true,
+//   optionsSuccessStatus: 204
+// }));
 app.use((0, helmet_1.default)());
 app.use((0, compression_1.default)());
 app.use(express_1.default.json({ limit: "1mb" }));
