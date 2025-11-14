@@ -1,0 +1,1 @@
+{"version":3,"file":"get-motor-usecase.js","sourceRoot":"","sources":["../../../../src/modules/motor/motor-usecases/get-motor-usecase.ts"],"names":[],"mappings":";;AAGA,MAAqB,UAAU;IACV,QAAQ,CAAe;IAExC,YAAY,QAAsB;QAC9B,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;IAED,KAAK,CAAC,OAAO,CAAC,OAAe;QACzB,OAAO,MAAM,IAAI,CAAC,QAAQ,CAAC,QAAQ,CAAC,OAAO,CAAC,CAAA;IAChD,CAAC;CACJ;AAVD,6BAUC"}

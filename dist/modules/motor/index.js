@@ -1,0 +1,35 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.motorRouter = void 0;
+const express_1 = require("express");
+const motor_repository_1 = __importDefault(require("./motor-repository"));
+const motor_service_1 = __importDefault(require("./motor-service"));
+const motor_controller_1 = __importDefault(require("./motor-controller"));
+const motor_in_usecase_1 = __importDefault(require("./motor-usecases/motor-in-usecase"));
+const get_motors_usecase_1 = __importDefault(require("./motor-usecases/get-motors-usecase"));
+const motor_move_to_overhauling_usecase_1 = __importDefault(require("./motor-usecases/motor-move-to-overhauling-usecase"));
+const motor_move_to_trail_usecase_1 = __importDefault(require("./motor-usecases/motor-move-to-trail-usecase"));
+const motor_move_to_available_usecase_1 = __importDefault(require("./motor-usecases/motor-move-to-available-usecase"));
+const motor_move_to_out_usecase_1 = __importDefault(require("./motor-usecases/motor-move-to-out-usecase"));
+const motor_analytics_usecase_1 = __importDefault(require("./motor-usecases/motor-analytics-usecase"));
+const upload_file_1 = require("../../middleware/upload-file");
+const motor_move_to_fault_usecase_1 = __importDefault(require("./motor-usecases/motor-move-to-fault-usecase"));
+const get_motor_usecase_1 = __importDefault(require("./motor-usecases/get-motor-usecase"));
+const motorRepo = new motor_repository_1.default();
+const motorSvc = new motor_service_1.default(motorRepo);
+const motorController = new motor_controller_1.default(new motor_in_usecase_1.default(motorSvc), new get_motors_usecase_1.default(motorSvc), new get_motor_usecase_1.default(motorSvc), new motor_move_to_overhauling_usecase_1.default(motorSvc), new motor_move_to_trail_usecase_1.default(motorSvc), new motor_move_to_available_usecase_1.default(motorSvc), new motor_move_to_out_usecase_1.default(motorSvc), new motor_move_to_fault_usecase_1.default(motorSvc), new motor_analytics_usecase_1.default(motorSvc));
+const motorRouter = (0, express_1.Router)();
+exports.motorRouter = motorRouter;
+motorRouter.post("/in", (req, res) => motorController.motorIn(req, res));
+motorRouter.patch("/:motor_id/move-to-overhauling", (req, res) => motorController.motorMoveToOverhauling(req, res));
+motorRouter.patch("/:motor_id/move-to-trial", (req, res) => motorController.motorMoveToTrial(req, res));
+motorRouter.patch("/:motor_id/move-to-fault", (req, res) => motorController.motorMoveToFault(req, res));
+motorRouter.patch("/:motor_id/move-to-available", (req, res) => motorController.motorMoveToAvailable(req, res));
+motorRouter.patch("/:motor_id/move-to-out", upload_file_1.fileUploader.array("images", 4), (req, res) => motorController.motorMoveToOut(req, res));
+motorRouter.get("/", (req, res) => motorController.getMotors(req, res));
+motorRouter.get("/analytics", (req, res) => motorController.motorAnalytics(req, res));
+motorRouter.get("/:motor_id", (req, res) => motorController.getMotor(req, res));
+//# sourceMappingURL=index.js.map

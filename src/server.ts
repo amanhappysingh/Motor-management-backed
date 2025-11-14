@@ -12,6 +12,7 @@ const init_server = async () => {
 
 const shutdown = async (signal?: string) => {
   logger.info("Turning off the server...")
+  process.exit(0)
 };
 
 process.on("SIGINT", () => shutdown("SIGINT"));
