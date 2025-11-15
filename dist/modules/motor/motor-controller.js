@@ -32,7 +32,7 @@ class MotorController {
         try {
             const data = motor_validator_1.motorInRequestSchema.parse(req.body);
             const userId = req.user?.userId;
-            await this.motorInUC.execute({ ...data, in_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorInUC.execute({ ...data, in_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.CREATED).json(base_response_1.default.created());
         }
         catch (error) {
@@ -78,7 +78,7 @@ class MotorController {
         try {
             const data = motor_validator_1.motorMoveToOverhaulingSchema.parse(req.params);
             const userId = req.user?.userId;
-            await this.motorMoveToOverhaulingUC.execute({ ...data, overhauled_started_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorMoveToOverhaulingUC.execute({ ...data, overhauled_started_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.OK).json(base_response_1.default.ok({ message: "Motor is moved for overhauling" }));
         }
         catch (error) {
@@ -90,7 +90,7 @@ class MotorController {
         try {
             const data = motor_validator_1.motorMoveToTrialSchema.parse({ ...req.body, ...req.params });
             const userId = req.user?.userId;
-            await this.motorMoveToTrialUC.execute({ ...data, overhauled_completed_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5", trial_started_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorMoveToTrialUC.execute({ ...data, overhauled_completed_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec", trial_started_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.OK).json(base_response_1.default.ok({ message: "Motor is moved for trial" }));
         }
         catch (error) {
@@ -102,7 +102,7 @@ class MotorController {
         try {
             const data = motor_validator_1.motorMoveToAvailableSchema.parse({ ...req.body, ...req.params });
             const userId = req.user?.userId;
-            await this.motorMoveToAvailableUC.execute({ ...data, trial_completed_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5", available_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorMoveToAvailableUC.execute({ ...data, trial_completed_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec", available_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.OK).json(base_response_1.default.ok({ message: "Motor is now available" }));
         }
         catch (error) {
@@ -116,7 +116,7 @@ class MotorController {
             const images = (req.files || [])?.map((image) => image.destination.split("src")[1].replace(/\\/g, "/") + "/" + image.filename);
             const data = motor_validator_1.motorMoveToOutSchema.parse({ ...req.body, ...req.params, images });
             const userId = req.user?.userId;
-            await this.motorMoveToOutUC.execute({ ...data, out_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorMoveToOutUC.execute({ ...data, out_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.OK).json(base_response_1.default.ok({ message: "Motor is now available" }));
         }
         catch (error) {
@@ -128,7 +128,7 @@ class MotorController {
         try {
             const data = motor_validator_1.motorMoveToFaultSchema.parse({ ...req.body, ...req.params });
             const userId = req.user?.userId;
-            await this.motorMoveToFaultUC.execute({ ...data, fault_find_by: userId || "4ab3d0e2-c733-4e8d-8eca-9252b14171f5" });
+            await this.motorMoveToFaultUC.execute({ ...data, fault_find_by: userId || "9fa6eb19-433b-48c6-9aaf-a01328c4eeec" });
             res.status(http_status_codes_1.StatusCodes.OK).json(base_response_1.default.ok({ message: "Motor is moved to fault" }));
         }
         catch (error) {

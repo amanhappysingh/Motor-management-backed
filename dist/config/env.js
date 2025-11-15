@@ -7,7 +7,7 @@ const envalid_1 = require("envalid");
 const dotenv_1 = __importDefault(require("dotenv"));
 const path = require("path");
 dotenv_1.default.config({
-    path: path.resolve(__dirname, "../../.env.example"),
+    path: path.resolve(__dirname, "../../.env"),
 });
 const env = (0, envalid_1.cleanEnv)(process.env, {
     NODE_ENV: (0, envalid_1.str)({

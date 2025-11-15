@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import path = require("path");
 
 dotenv.config({
-  path: path.resolve(__dirname, "../../.env.example"),
+  path: path.resolve(__dirname, "../../.env"),
 });
 
 const env = cleanEnv(process.env, {
